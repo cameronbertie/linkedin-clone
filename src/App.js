@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/userSlice";
 import Login from "./Login";
 import { auth, onAuthStateChanged } from "./firebase";
+import Widgets from "./Widgets";
 
 function App() {
 const user = useSelector(selectUser);
