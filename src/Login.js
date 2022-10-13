@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword  } from "./firebase";
-import { login } from './features/userSlice';
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "./firebase";
+import { login } from "./features/userSlice";
 import "./Login.css";
 
 function Login() {
@@ -15,14 +20,17 @@ function Login() {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
-    .then(userAuth => {
-        dispatch(login({
+      .then((userAuth) => {
+        dispatch(
+          login({
             email: userAuth.user.email,
             uid: userAuth.user.uid,
             displayName: userAuth.user.displayName,
-            profileUrl: userAuth.user.photoUrl
-        }))
-    }).catch(error => alert(error));
+            profileUrl: userAuth.user.photoURL,
+          })
+        );
+      })
+      .catch((error) => alert(error));
   };
 
   const register = () => {
@@ -35,18 +43,18 @@ function Login() {
         updateProfile(userAuth.user, {
           displayName: name,
           photoURL: profilePic,
-        })
-      .then(() => {
-        dispatch(
-          login({
-            email: userAuth.user.email,
-            uid: userAuth.user.uid,
-            displayName: name,
-            photoUrl: profilePic
-          })
-        );
-      });
-      }).catch(error => alert(error));
+        }).then(() => {
+          dispatch(
+            login({
+              email: userAuth.user.email,
+              uid: userAuth.user.uid,
+              displayName: name,
+              photoUrl: profilePic,
+            })
+          );
+        });
+      })
+      .catch((error) => alert(error));
   };
 
   return (
